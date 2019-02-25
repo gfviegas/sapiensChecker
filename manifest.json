@@ -15,7 +15,13 @@
     }
   ],
   "permissions": [
-    "webNavigation"
+    "webNavigation",
+    "notifications",
+    "contextMenus",
+    "alarms"
+  ],
+  "web_accessible_resources": [
+    "alarm.mp3"
   ],
   "browser_action": {
     "default_icon": "icon.png"

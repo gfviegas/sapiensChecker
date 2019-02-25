@@ -7,8 +7,20 @@ let timeoutHandler = null
 const searchTable = async (data) => {
   return data.forEach(v => {
     if (v.innerHTML !== '-' && v.innerHTML !== '<b>Vagas</b>') {
-      window.alert('TEM VAGA, CARALHO')
-      console.log(v)
+      const code = v.parentElement.firstChild.innerText
+
+      chrome.runtime.sendMessage({
+        type: 'notification',
+        options: {
+          silent: false,
+          type: 'basic',
+          iconUrl: chrome.extension.getURL('icon.png'),
+          title: `Tem vaga em ${code}!`,
+          message: 'Confere lá'
+        }
+      })
+
+      console.log(v.parentElement)
     }
   })
 }

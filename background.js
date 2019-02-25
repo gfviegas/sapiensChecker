@@ -46,4 +46,24 @@ chrome.browserAction.onClicked.addListener((tab) => {
   })
 })
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  chrome.notifications.create('worktimer-notification', request.options, () => {})
+  chrome.alarms.create('myAlarm', {delayInMinutes: 1})
+
+  document.write('<audio id="player" src="alarm.mp3" autoplay>')
+  const player = document.getElementById('player')
+  player.pause()
+  player.volume = 0
+  setTimeout(() => {
+    player.play()
+  }, 150)
+
+  const alarm = new window.Audio(chrome.runtime.getURL('alarm.mp3'))
+  alarm.play()
+
+  player.parentNode.removeChild(player)
+  sendResponse()
+})
+
+// On run...
 resetVariables()
